@@ -6,11 +6,14 @@
     - Instalación del entorno con docker
     - Uso de los scripts de docker
     - Uso de los scripts custom
+    - Habilitar stylelint en phpstorm e instalarlo en vscode
   - Logs
   - Debug
   - Crear y desarrollar tema
   - Crear y desarrollar plugin
   - Pipelines
+  - Linting
+    - [SCSS](https://stylelint.io/user-guide/rules/list/)
 - Documentación raíz (Este readme)
   - Instalación inicial
 - Pipelines
