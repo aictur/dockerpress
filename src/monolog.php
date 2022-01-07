@@ -1,25 +1,31 @@
-<?php
+<?php /** @noinspection PhpUndefinedConstantInspection */
 
+use Monolog\ErrorHandler;
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
 use Monolog\Handler\RotatingFileHandler;
+use Monolog\Processor\IntrospectionProcessor;
 
-// El logger por defecto escribe en un archivo de log diario y por error_log
-$defaultLogger = new Logger('name');
-$defaultLogger->pushHandler(
-    new RotatingFileHandler(
-        __DIR__.'/logs/'.getenv_docker('MONOLOG_LOG_NAME', 'wordpress.log'),
-        getenv_docker('MONOLOG_LOG_DAYS', 30),
-        getenv_docker('MONOLOG_LOG_LEVEL', Logger::WARNING)
-    )
+// Logger por defecto como variable global
+$defaultLogger = new Logger('wpMonolog');
+
+// Añadimos el procesador de logs que nos concatena el archivo y línea de donde procede el log
+$defaultLogger->pushProcessor(new IntrospectionProcessor(MONOLOG_LOG_LEVEL));
+
+// Logger en archivo diario
+$defaultLogFileHandler = new RotatingFileHandler(
+    __DIR__.'/logs/'.MONOLOG_LOG_NAME,
+	MONOLOG_LOG_DAYS,
+	MONOLOG_LOG_LEVEL
 );
-$defaultLogger->pushHandler(
-    new ErrorLogHandler(
-        ErrorLogHandler::OPERATING_SYSTEM,
-        getenv_docker('MONOLOG_LOG_LEVEL', Logger::DEBUG)
-    )
+$defaultLogger->pushHandler($defaultLogFileHandler);
+
+// Logger por error_log nativo de PHP (stdout en docker)
+$defaultLogHandler = new ErrorLogHandler(
+    ErrorLogHandler::OPERATING_SYSTEM,
+	MONOLOG_LOG_LEVEL
 );
+$defaultLogger->pushHandler($defaultLogHandler);
 
-
-$defaultLogger->warning('Foo');
-$defaultLogger->error('Bar');
+// Logger de errores genéricos de PHP
+ErrorHandler::register($defaultLogger);

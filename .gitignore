@@ -6,3 +6,4 @@ vendor/
 !/src/themes/example-theme
 /src/plugins/*
 !/src/plugins/example-plugin/
+node_modules/

@@ -1,0 +1,6 @@
+vendor
+assets/css/*.css
+assets/js/*.js
+node_modules
+*hot-update.*
+*.LICENSE.txt

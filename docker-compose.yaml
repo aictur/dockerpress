@@ -15,6 +15,9 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         require __DIR__.'/vendor/autoload.php';
         define('WP_DEBUG_DISPLAY', false);
+        define('MONOLOG_LOG_NAME', getenv_docker('MONOLOG_LOG_NAME', 'wordpress.log'));
+        define('MONOLOG_LOG_DAYS', getenv_docker('MONOLOG_LOG_DAYS', 30));
+        define('MONOLOG_LOG_LEVEL', getenv_docker('MONOLOG_LOG_LEVEL', \Monolog\Logger::WARNING));
         require __DIR__.'/monolog.php';
     volumes:
       - ./wordpress:/var/www/html
@@ -22,7 +25,7 @@ services:
       - ./src/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./src/themes:/var/www/html/wp-content/themes
       - ./src/monolog.php:/var/www/html/monolog.php
-      - ./vendor:/var/www/html/vendor
+#      - ./vendor:/var/www/html/vendor
     depends_on:
       - db
     networks:
