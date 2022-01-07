@@ -20,9 +20,9 @@ if ( ! function_exists( 'basic_bootstrap_theme_with_webpack_and_hmr_setup' ) ) :
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
 		 * If you're building a theme based on WordPress Theme with Webpack and HMR, use a find and replace
-		 * to change 'basic-bootstrap-theme-with-webpack-and-hmr' to the name of your theme in all the template files.
+		 * to change 'example-theme' to the name of your theme in all the template files.
 		 */
-		load_theme_textdomain( 'basic-bootstrap-theme-with-webpack-and-hmr', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'example-theme', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -44,7 +44,7 @@ if ( ! function_exists( 'basic_bootstrap_theme_with_webpack_and_hmr_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'basic-bootstrap-theme-with-webpack-and-hmr' ),
+			'menu-1' => esc_html__( 'Primary', 'example-theme' ),
 		) );
 
 		/*
@@ -84,42 +84,9 @@ endif;
 add_action( 'after_setup_theme', 'basic_bootstrap_theme_with_webpack_and_hmr_setup' );
 
 /**
- * Set the content width in pixels, based on the theme's design and stylesheet.
- *
- * Priority 0 to make it available to lower priority callbacks.
- *
- * @global int $content_width
+ * Añadir estilos y scripts básicos
  */
-function basic_bootstrap_theme_with_webpack_and_hmr_content_width() {
-	// This variable is intended to be overruled from themes.
-	// Open WPCS issue: {@link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/1043}.
-	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
-	$GLOBALS['content_width'] = apply_filters( 'basic_bootstrap_theme_with_webpack_and_hmr_content_width', 640 );
-}
-add_action( 'after_setup_theme', 'basic_bootstrap_theme_with_webpack_and_hmr_content_width', 0 );
-
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function basic_bootstrap_theme_with_webpack_and_hmr_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'basic-bootstrap-theme-with-webpack-and-hmr' ),
-		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'basic-bootstrap-theme-with-webpack-and-hmr' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
-}
-add_action( 'widgets_init', 'basic_bootstrap_theme_with_webpack_and_hmr_widgets_init' );
-
-/**
- * Enqueue scripts and styles.
- */
-function basic_bootstrap_theme_with_webpack_and_hmr_scripts() {
+function basic_styles_and_js() {
 	//wp_enqueue_style( 'basic-bootsrap-theme-with-webpack-and-hmr-style', get_stylesheet_uri() );
 
 	wp_deregister_script( 'jquery' );
@@ -127,9 +94,6 @@ function basic_bootstrap_theme_with_webpack_and_hmr_scripts() {
     wp_register_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js', array(), '20151215');
     wp_enqueue_script('jquery');
 
-	wp_enqueue_script( 'basic-bootsrap-theme-with-webpack-and-hmr-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
-
-	wp_enqueue_script( 'basic-bootsrap-theme-with-webpack-and-hmr-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -143,50 +107,5 @@ function basic_bootstrap_theme_with_webpack_and_hmr_scripts() {
 	wp_register_script('basic-bootsrap-theme-with-webpack-and-hmr-script', get_template_directory_uri() . '/assets/js/app.js', array(), '20151215', true);
 	wp_enqueue_script('basic-bootsrap-theme-with-webpack-and-hmr-script');
 	// ----------------------------------------------------------------
-
-//    if (!defined('WP_ENVIRONMENT') || WP_ENVIRONMENT == "production")
-//    {
-//    	wp_enqueue_style( 'basic-bootsrap-theme-with-webpack-and-hmr-custom-style', get_template_directory_uri() . '/assets/css/style.css', array(), '20151215', 'screen');
-//
-//        wp_register_script('basic-bootsrap-theme-with-webpack-and-hmr-script', get_template_directory_uri() . '/assets/js/script.js', array(), '20151215', true);
-//        wp_enqueue_script('basic-bootsrap-theme-with-webpack-and-hmr-script');
-//    }
-//    else
-//    {
-//	    wp_enqueue_style( 'basic-bootsrap-theme-with-webpack-and-hmr-custom-style', 'http://localhost:8080/assets/css/style.css', array(), '20151215', 'screen');
-//
-//        wp_register_script('basic-bootsrap-theme-with-webpack-and-hmr-script', 'http://localhost:8080/assets/js/script.js', array(), '20151215', true);
-//        wp_enqueue_script('basic-bootsrap-theme-with-webpack-and-hmr-script');
-//    }
 }
-add_action( 'wp_enqueue_scripts', 'basic_bootstrap_theme_with_webpack_and_hmr_scripts' );
-
-/**
- * Implement the Custom Header feature.
- */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-require get_template_directory() . '/inc/class-wp-bootstrap-navwalker.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
-}
-
+add_action( 'wp_enqueue_scripts', 'basic_styles_and_js' );

@@ -6,6 +6,7 @@
     - Instalación del entorno con docker
     - Uso de los scripts de docker
     - Uso de los scripts custom
+    - Configuración del email
     - Habilitar stylelint en phpstorm e instalarlo en vscode
   - Logs
   - Debug
@@ -22,7 +23,6 @@
 - Ejecución [concurrente](https://www.npmjs.com/package/concurrently) de webpack
 - ESLint
 - PHP CS
-- Stylelint (SASS Linter)
 - Script gestión de plugins por fichero
   - Obtendrá los plugins y sus versiones, generando un archivo con ambos datos.
   - Realizará la instalación de los mismos mediante WP CLI
