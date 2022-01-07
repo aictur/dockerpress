@@ -1,0 +1,8 @@
+vendor/
+/wordpress
+/database
+.env
+/src/themes/*
+!/src/themes/example-theme
+/src/plugins/*
+!/src/plugins/example-plugin/

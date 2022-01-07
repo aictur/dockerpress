@@ -1,0 +1,95 @@
+version: '3.1'
+services:
+  wordpress:
+    image: wordpress:5.8.2-php8.0-apache
+    restart: 'no'
+    ports:
+      - '${WP_PORT:-8000}:80'
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: '${DB_USER}'
+      WORDPRESS_DB_PASSWORD: '${DB_PASSWORD}'
+      WORDPRESS_DB_NAME: '${DB_NAME}'
+      WORDPRESS_DEBUG: '${WORDPRESS_DEBUG:-0}'
+      WORDPRESS_TABLE_PREFIX: '${DB_PREFIX:-wp_}'
+      WORDPRESS_CONFIG_EXTRA: |
+        require __DIR__.'/vendor/autoload.php';
+        define('WP_DEBUG_DISPLAY', false);
+        require __DIR__.'/monolog.php';
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./src/plugins:/var/www/html/wp-content/plugins
+      - ./src/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./src/themes:/var/www/html/wp-content/themes
+      - ./src/monolog.php:/var/www/html/monolog.php
+      - ./vendor:/var/www/html/vendor
+    depends_on:
+      - db
+    networks:
+      - wordpress
+  db:
+    image: mysql:8.0
+    restart: 'no'
+    environment:
+      MYSQL_DATABASE: '${DB_NAME}'
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    ports:
+      - '${DB_PUBLISH_PORT:-3306}:3306'
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      - wordpress
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    networks:
+      - wordpress
+#  sass:
+#    image: node:14.17
+#    working_dir: /app
+#    command: bash -c 'npm install && npm run sass && npm run watch'
+#    restart: 'no'
+#    volumes:
+#      - .:/app
+  cli:
+    image: wordpress:cli
+    entrypoint: ['php', '-d', 'memory_limit=-1', '/usr/local/bin/wp']
+    restart: 'no'
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: '${DB_USER}'
+      WORDPRESS_DB_PASSWORD: '${DB_PASSWORD}'
+      WORDPRESS_DB_NAME: '${DB_NAME}'
+      WORDPRESS_DEBUG: '${WORDPRESS_DEBUG:-0}'
+      WORDPRESS_TABLE_PREFIX: '${DB_PREFIX:-wplnzte_}'
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./src/plugins:/var/www/html/wp-content/plugins
+      - ./src/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./src/themes:/www/html/wp-content/themes
+    depends_on:
+      - db
+    networks:
+      - wordpress
+  composer:
+    image: composer/composer
+    restart: 'no'
+    command: composer install
+    volumes:
+      - ./:/app
+    networks:
+      - wordpress
+
+networks:
+  wordpress:
+    driver: bridge
+
+
+#  custom.ini:$PHP_INI_DIR/conf.d/
+#  /usr/local/etc/php/php.ini
