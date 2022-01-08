@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "scss:lint": "stylelint --config=stylelint.config.js \"./src/themes/**/assets/src/scss/**/*.{css,scss,sass}\"",
-    "scss:fix": "npm run scss:lint -- --fix"
+    "scss:fix": "npm run scss:lint -- --fix",
+    "theme:watch": "cd src/themes/example-theme && npm i && npm run dev"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "minimist": "^1.2.5",
     "stylelint": "^14.2.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-config-standard": "^24.0.0",

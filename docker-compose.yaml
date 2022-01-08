@@ -25,7 +25,34 @@ services:
       - ./src/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./src/themes:/var/www/html/wp-content/themes
       - ./src/monolog.php:/var/www/html/monolog.php
-#      - ./vendor:/var/www/html/vendor
+    depends_on:
+      - db
+    networks:
+      - wordpress
+  cli:
+    image: wordpress:cli-php8.0
+    entrypoint: [ 'php', '-d', 'memory_limit=-1', '/usr/local/bin/wp' ]
+    restart: 'no'
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: '${DB_USER}'
+      WORDPRESS_DB_PASSWORD: '${DB_PASSWORD}'
+      WORDPRESS_DB_NAME: '${DB_NAME}'
+      WORDPRESS_DEBUG: '${WORDPRESS_DEBUG:-0}'
+      WORDPRESS_TABLE_PREFIX: '${DB_PREFIX:-wp_}'
+      WORDPRESS_CONFIG_EXTRA: |
+        require '/var/www/html/vendor/autoload.php';
+        define('WP_DEBUG_DISPLAY', false);
+        define('MONOLOG_LOG_NAME', getenv_docker('MONOLOG_LOG_NAME', 'wordpress.log'));
+        define('MONOLOG_LOG_DAYS', getenv_docker('MONOLOG_LOG_DAYS', 30));
+        define('MONOLOG_LOG_LEVEL', getenv_docker('MONOLOG_LOG_LEVEL', \Monolog\Logger::EMERGENCY));
+        require '/var/www/html/monolog.php';
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./src/plugins:/var/www/html/wp-content/plugins
+      - ./src/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./src/themes:/var/www/html/wp-content/themes
+      - ./src/monolog.php:/var/www/html/monolog.php
     depends_on:
       - db
     networks:
@@ -53,31 +80,14 @@ services:
       - 8025:8025 # web ui
     networks:
       - wordpress
-#  sass:
-#    image: node:14.17
-#    working_dir: /app
-#    command: bash -c 'npm install && npm run sass && npm run watch'
-#    restart: 'no'
-#    volumes:
-#      - .:/app
-  cli:
-    image: wordpress:cli
-    entrypoint: ['php', '-d', 'memory_limit=-1', '/usr/local/bin/wp']
+  npm:
+    image: node:14.17
+    working_dir: /app
+    entrypoint: npm
+    command: bash -c 'npm install && npm run theme:watch'
     restart: 'no'
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: '${DB_USER}'
-      WORDPRESS_DB_PASSWORD: '${DB_PASSWORD}'
-      WORDPRESS_DB_NAME: '${DB_NAME}'
-      WORDPRESS_DEBUG: '${WORDPRESS_DEBUG:-0}'
-      WORDPRESS_TABLE_PREFIX: '${DB_PREFIX:-wplnzte_}'
     volumes:
-      - ./wordpress:/var/www/html
-      - ./src/plugins:/var/www/html/wp-content/plugins
-      - ./src/mu-plugins:/var/www/html/wp-content/mu-plugins
-      - ./src/themes:/www/html/wp-content/themes
-    depends_on:
-      - db
+      - .:/app
     networks:
       - wordpress
   composer:

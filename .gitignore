@@ -7,3 +7,4 @@ vendor/
 /src/plugins/*
 !/src/plugins/example-plugin/
 node_modules/
+wordpress.yaml

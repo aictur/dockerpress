@@ -17,6 +17,7 @@
     - [SCSS](https://stylelint.io/user-guide/rules/list/)
 - Documentación raíz (Este readme)
   - Instalación inicial
+  - Renombrar tema (cambiar path scripts npm y archivos php)
 - Pipelines
 - Boilerplate de tema
 - Boilerplate de plugin (posible webpack)
@@ -32,3 +33,8 @@
 - XDEBUG
 - ¿[Migraciones](https://github.com/cakephp/phinx) de BD?
 - Licencia
+
+
+
+# Comandos
+- Sacar JSON de plugins: `dcom run cli plugin list --format=json --status=active --fields=name,version > plugins.json`
