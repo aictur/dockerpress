@@ -1,0 +1,8 @@
+version: '3.1'
+services:
+  php8:
+    image: php:8.0
+    working_dir: /app
+    restart: 'no'
+    volumes:
+      - .:/app

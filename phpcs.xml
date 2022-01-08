@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset name="AreaF5">
+    <description>ÁreaF5 WP standard</description>
+    <!-- Enable colors in report -->
+    <arg name="colors"/>
+    <!-- Add source codes in the report -->
+    <arg value="s"/>
+
+    <!--Inherit rules-->
+    <rule ref="WordPress-Core"/>
+    <rule ref="WordPress"/>
+    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress-Docs"/>
+
+
+    <!--Disable rules-->
+    <rule ref="PEAR">
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket"/>
+        <exclude name="PEAR.Commenting.FileComment"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket"/>
+    </rule>
+    <rule ref="Generic">
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
+        <exclude name="Generic.PHP.ClosingPHPTag.NotFound"/>
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found"/>
+        <exclude name="Generic.Files.EndFileNoNewline.Found"/>
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+    </rule>
+    <rule ref="WordPress">
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceBeforeArrayCloser"/>
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceAfterArrayOpener"/>
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned"/>
+    </rule>
+    <rule ref="Squiz">
+        <exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+        <exclude name="Squiz.PHP.GlobalKeyword.NotAllowed"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned"/>
+        <exclude name="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+        <exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned"/>
+    </rule>
+
+    <!--Override rules-->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="180"/>
+        </properties>
+    </rule>
+
+
+</ruleset>
