@@ -5,7 +5,7 @@
   "main": "./assets/src/js/app.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --config webpack.prod.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --config webpack.dev.js"
+    "watch": "cross-env NODE_ENV=development webpack-dev-server --hot --config webpack.dev.js"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.2",

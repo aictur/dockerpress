@@ -4,9 +4,11 @@
   "description": "> Para la documentación de desarrollador, dirigirse a la carpeta `docs`",
   "main": "index.js",
   "scripts": {
+    "install:all": "node ./scripts/global-command.js install",
+    "watch": "npm run install:all && node ./scripts/global-command.js run watch",
     "scss:lint": "stylelint --config=stylelint.config.js \"./src/themes/**/assets/src/scss/**/*.{css,scss,sass}\"",
     "scss:fix": "npm run scss:lint -- --fix",
-    "theme:watch": "cd src/themes/example-theme && npm i && npm run dev"
+    "theme:watch": "cd src/themes/example-theme && npm i && npm run watch"
   },
   "author": "",
   "license": "ISC",
