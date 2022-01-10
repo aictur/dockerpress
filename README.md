@@ -28,13 +28,13 @@
   - Obtendrá los plugins y sus versiones, generando un archivo con ambos datos.
   - Realizará la instalación de los mismos mediante WP CLI
   - También se podrán instalar mediante ZIP almacenado en el repo
-- Encriptado y desencriptado de `wp-config` con GPG 
+- Encriptado y desencriptado de `wp-config` con GPG
 - Script que actualice plugins (usando anterior comando), media files y/o base de datos a elección
 - XDEBUG
 - ¿[Migraciones](https://github.com/cakephp/phinx) de BD?
 - Licencia
 
 
-
 # Comandos
 - Sacar JSON de plugins: `dcom run cli plugin list --format=json --status=active --fields=name,version > plugins.json`
+- Lint PHP: `dcom -f docker-compose-tools.yaml run php8 ./wordpress/vendor/bin/phpcs --standard=phpcs.xml $(git ls-files --exclude-standard | grep ".php")`

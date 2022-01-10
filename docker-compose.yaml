@@ -84,7 +84,9 @@ services:
     image: node:14.17
     working_dir: /app
     entrypoint: npm
-    command: bash -c 'npm install && npm run theme:watch'
+    command: run theme:watch
+    ports:
+      - 8080:8080
     restart: 'no'
     volumes:
       - .:/app

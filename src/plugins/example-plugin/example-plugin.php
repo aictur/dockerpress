@@ -12,13 +12,10 @@ declare(strict_types = 1);
 
 global $default_logger;
 $default_logger->warning('Foo');
-$default_logger->error(
-    'Bar',
-    [
-        'example_key' => [
-            'example_value' => $default_logger,
-            'a' => 'a',
-        ],
-    ]
-);
-$b = ['a' => 'a'];
+
+$default_logger->error('Bar', [
+    'example_key' => [
+        'example_value' => $default_logger,
+        'a' => 'b',
+    ],
+]);

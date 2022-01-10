@@ -33,9 +33,11 @@ module.exports = {
 		})
 	],
 	devServer: {
-		allowedHosts: [
-			'*'
-		],
+		// allowedHosts: [
+		// 	'*'
+		// ],
+        host: '0.0.0.0',
+        allowedHosts: 'all',
 		headers: { 'Access-Control-Allow-Origin': '*' },
 		devMiddleware: {
 			writeToDisk: true
