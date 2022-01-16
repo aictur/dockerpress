@@ -49,6 +49,7 @@ services:
         require '/var/www/html/monolog.php';
     volumes:
       - ./wordpress:/var/www/html
+      - ~/.wp-cli:/home/www-data/.wp-cli/
       - ./src/plugins:/var/www/html/wp-content/plugins
       - ./src/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./src/themes:/var/www/html/wp-content/themes
@@ -68,7 +69,7 @@ services:
     ports:
       - '${DB_PUBLISH_PORT:-3306}:3306'
     volumes:
-      - ./database:/var/lib/mysql
+      - database:/var/lib/mysql
     networks:
       - wordpress
   mailhog:
@@ -105,6 +106,7 @@ networks:
   wordpress:
     driver: bridge
 
-
+volumes:
+  database:
 #  custom.ini:$PHP_INI_DIR/conf.d/
 #  /usr/local/etc/php/php.ini

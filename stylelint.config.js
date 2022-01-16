@@ -1,6 +1,6 @@
 module.exports = {
-  "extends": "stylelint-config-sass-guidelines",
+  extends: "stylelint-config-standard-scss",
   rules: {
-    "string-quotes": "double"
-  }
-}
+    "string-quotes": "double",
+  },
+};

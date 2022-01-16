@@ -1,0 +1,25 @@
+environments:
+  local:
+    type: local
+    domain: http://localhost:8000
+    basePath: ./wordpress
+    database:
+      user: test
+      password: test
+      database: test
+  develop:
+    ssh: develop
+    domain: https://domain.com
+    basePath: /var/www/lanzarote.devf6.es/web
+    database:
+      tunnel: develop
+      user: user
+      password: password # Opcional si tienes clave publica configurada
+      database: database_name
+#      host: 10.0.0.1 # Opcional (por defecto 127.0.0.1)
+ssh:
+  develop:
+    host: domain.com
+    user: ssh_user
+    password: sshPass123
+    port: 61022

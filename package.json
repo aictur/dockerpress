@@ -6,7 +6,9 @@
   "scripts": {
     "install:all": "node ./scripts/global-command.js install",
     "watch": "npm run install:all && node ./scripts/global-command.js run watch",
+    "wp-update": "node ./scripts/wp-update.js",
     "scss:lint": "stylelint --config=stylelint.config.js \"./src/themes/**/assets/src/scss/**/*.{css,scss,sass}\"",
+    "js:lint": "eslint src/themes/example-theme/assets/src",
     "scss:fix": "npm run scss:lint -- --fix",
     "theme:watch": "cd src/themes/example-theme && npm i && npm run watch"
   },
@@ -14,13 +16,24 @@
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
     "minimist": "^1.2.5",
+    "prettier": "^2.5.1",
     "stylelint": "^14.2.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-config-standard": "^24.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
     "stylelint-config-wordpress": "^17.0.0",
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.1.0",
     "stylelint-webpack-plugin": "^3.1.0"
+  },
+  "dependencies": {
+    "sass": "^1.48.0",
+    "yaml": "^1.10.2"
   }
 }

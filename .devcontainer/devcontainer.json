@@ -1,0 +1,52 @@
+{
+  "build": { "dockerfile": "../docker/images/devcontainer/Dockerfile" },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "mikestead.dotenv",
+    "xabikos.javascriptsnippets",
+    "eamodio.gitlens",
+    "ecmel.vscode-html-css",
+    "zignd.html-css-class-completion",
+    "zaaack.markdown-editor",
+    "shd101wyy.markdown-preview-enhanced",
+    "davidanson.vscode-markdownlint",
+    "felixfbecker.php-debug",
+    "bmewburn.vscode-intelephense-client",
+    "mehedidracula.php-namespace-resolver",
+    "wongjn.php-sniffer",
+    "esbenp.prettier-vscode",
+    "syler.sass-indented",
+    "mrmlnc.vscode-scss",
+    "redhat.vscode-yaml",
+    "stylelint.vscode-stylelint",
+    "obliviousharmony.vscode-php-codesniffer"
+  ],
+  "runArgs": [
+    "--network=wp-boilerplate_wordpress",
+  ],
+  "settings": {
+    "php.validate.run": "onType",
+    "javascript.suggest.autoImports": false,
+    "stylelint.enable": true,
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "files.eol": "\n",
+    "phpCodeSniffer.autoExecutable": true,
+    "phpCodeSniffer.standard": "Custom",
+    "phpCodeSniffer.standardCustom": "phpcs.xml",
+    "stylelint.configFile": "stylelint.config.js",
+    "stylelint.snippet": [
+      "css",
+      "less",
+      "postcss",
+      "SCSS"
+    ],
+    "stylelint.validate": [
+      "css",
+      "less",
+      "postcss",
+      "scss"
+    ]
+  }
+}
