@@ -1,5 +1,10 @@
 {
   "build": { "dockerfile": "../docker/images/devcontainer/Dockerfile" },
+  // "mounts": ["source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html,type=bind",
+  "workspaceFolder": "/var/www/html",
+  "forwardPorts": [3306, 8000],
+  "postCreateCommand": "service apache2 start && service mariadb start",
   "extensions": [
     "dbaeumer.vscode-eslint",
     "mikestead.dotenv",
@@ -21,9 +26,10 @@
     "stylelint.vscode-stylelint",
     "obliviousharmony.vscode-php-codesniffer"
   ],
-  "runArgs": [
-    "--network=wp-boilerplate_wordpress",
-  ],
+  // "runArgs": [
+  //   "--network=host",
+  //   "--privileged"
+  // ],
   "settings": {
     "php.validate.run": "onType",
     "javascript.suggest.autoImports": false,

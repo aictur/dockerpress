@@ -4,13 +4,13 @@
   "description": "> Para la documentación de desarrollador, dirigirse a la carpeta `docs`",
   "main": "index.js",
   "scripts": {
-    "install:all": "node ./scripts/global-command.js install",
+    "install:all": "npm i && node ./scripts/global-command.js install",
     "watch": "npm run install:all && node ./scripts/global-command.js run watch",
     "wp-update": "node ./scripts/wp-update.js",
     "scss:lint": "stylelint --config=stylelint.config.js \"./src/themes/**/assets/src/scss/**/*.{css,scss,sass}\"",
     "js:lint": "eslint src/themes/example-theme/assets/src",
     "scss:fix": "npm run scss:lint -- --fix",
-    "theme:watch": "cd src/themes/example-theme && npm i && npm run watch"
+    "wp:update": "node ./scripts/wp-update.js"
   },
   "author": "",
   "license": "ISC",

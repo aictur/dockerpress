@@ -2,6 +2,7 @@ version: '3.1'
 services:
   wordpress:
     image: wordpress:5.8.2-php8.0-apache
+    user: '${USER_ID:-1000}'
     restart: 'no'
     ports:
       - '${WP_PORT:-8000}:80'
@@ -31,6 +32,7 @@ services:
       - wordpress
   cli:
     image: wordpress:cli-php8.0
+    user: '${USER_ID:-1000}'
     entrypoint: [ 'php', '-d', 'memory_limit=-1', '/usr/local/bin/wp' ]
     restart: 'no'
     environment:
@@ -69,7 +71,7 @@ services:
     ports:
       - '${DB_PUBLISH_PORT:-3306}:3306'
     volumes:
-      - database:/var/lib/mysql
+      - ./database:/var/lib/mysql
     networks:
       - wordpress
   mailhog:
@@ -83,6 +85,7 @@ services:
       - wordpress
   npm:
     image: node:14.17
+    user: '${USER_ID:-1000}'
     working_dir: /app
     entrypoint: npm
     command: run watch
@@ -95,6 +98,7 @@ services:
       - wordpress
   composer:
     image: composer/composer
+    user: '${USER_ID:-1000}'
     restart: 'no'
     command: install
     volumes:
@@ -106,7 +110,7 @@ networks:
   wordpress:
     driver: bridge
 
-volumes:
-  database:
+#volumes:
+#  database:
 #  custom.ini:$PHP_INI_DIR/conf.d/
 #  /usr/local/etc/php/php.ini
